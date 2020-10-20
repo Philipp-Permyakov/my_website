@@ -1,0 +1,41 @@
+---
+categories:
+- ""
+- ""
+date: "2020-10-20"
+description: Tes
+draft: false
+image: website_ph2.jpg
+keywords: "About me"
+slug: about_me
+title: Hi, my name is Philipp Permyakov
+---
+
+# About
+
+I come from Russia, where I grew up in Moscow. I am currently reading for Masters
+in Financial Analysis degree at London Business School. 
+
+My previous work experience lays in: 
+
+* Management Consulting- Bain & Company
+* Research - International Laboratory of Financial Economics
+* Portfolio Management - UniCredit Private Banking
+* Asset Management - TKB IP
+
+
+
+# Hobbies 
+My rapid pace of life and busy schedule make my free time extremely valuable for me, and I try to maximize the benefit from it to my overall development.
+
+Firstly, sport has always been an essential part of my life. In my school years, I did swimming, winning district junior competition, and later I did sambo wrestling, taking part in many championships. I am currently doing fitness, which helps me to stay energetic and focused in my everyday life. It allows me to represent my faculty at competitions, being a member of the weightlifting university sports team. I am also keen on mountain skiing in winter, traveling to the Alps with my college friends. 
+Secondly, in the last three years, I have been interested in cryptocurrency trading.
+
+
+Using Python, I have built my own arbitrage trading system, which makes profits exploiting market inefficiencies in spreads between exchanges. I usually devote some of my spare time to maintaining the trading bot, discovering new strategies and engaging in the cryptocurrency traders community. This hobby upgrades my programming skills and allows me to be aware of the latest FinTech trends. 
+
+
+Finally, I enjoy playing poker as a kind of sport. This spring I was happy to participate in the Belarus Poker Tour championship and win a prize in one of the tournaments. Poker provides a unique environment, which combines mathematical, logical and psychological challenges. Deepening into the theory of poker, one could be amazed by the complexity of applied statistics and game theory concepts. This game allows me to improve my decision-making skills and to get insights into people’s mindsets. 
+
+
+

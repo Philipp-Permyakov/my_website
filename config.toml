@@ -95,7 +95,7 @@ disqusShortname = ""
       title = "Philipp Permyakov"
       subtitle = "ABOUT ME"
       image = "website_ph1.jpg"
-      url = "projects/about_me"
+      url = "blogs/about_me"
 
     [[params.tiles.showcase]]
       title = "Tempus"
