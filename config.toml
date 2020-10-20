@@ -98,16 +98,16 @@ disqusShortname = ""
       url = "blogs/about_me"
 
     [[params.tiles.showcase]]
-      title = "Tempus"
-      subtitle = "Feugiat Amet Tempus"
-      image = "pic02.jpg"
-      url = "blogs/tempus"
+      title = "How much does it cost to stay in Honk Kong?"
+      subtitle = "Lets find the answer using AirBnb data"
+      image = "airbnb_w.jpg"
+      url = "blogs/airbnb"
 
     [[params.tiles.showcase]]
-      title = "Magna"
-      subtitle = "Lorem Etiam Nullam"
-      image = "pic03.jpg"
-      url = "blogs/magna"
+      title = "Did COVID-19 have an effect on bike sharing in London?"
+      subtitle = "Investigating excess rentals using graphs and TFL data"
+      image = "tfl_wp.jpeg"
+      url = "blogs/tfl_bikes"
 
     [[params.tiles.showcase]]
       title = "Ipsum"
@@ -136,16 +136,16 @@ disqusShortname = ""
     # To add more blogs just copy and paste the code.
 
   # Section Type Two
-  [params.two]
-    enable = true
-    title = "Massa libero"
-    subtitle = """Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero. 
-    Mauris aliquet magna magna sed nunc rhoncus pharetra. 
-    Pellentesque condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia pellentesque lorem ipsum dolor. 
-    Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis libero.
-    Mauris aliquet magna magna sed nunc rhoncus amet pharetra et feugiat tempus."""
-    buttonText = "Get Started"
-    url = "blogs"
+  #[params.two]
+   # enable = true
+  #  title = "Massa libero"
+  #  subtitle = """Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero. 
+  #  Mauris aliquet magna magna sed nunc rhoncus pharetra. 
+  #  Pellentesque condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia pellentesque lorem ipsum dolor. 
+  #  Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis libero.
+  #  Mauris aliquet magna magna sed nunc rhoncus amet pharetra et feugiat tempus."""
+  #  buttonText = "Get Started"
+  #  url = "blogs"
 
 
   # Contact section
