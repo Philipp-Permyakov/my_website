@@ -3,7 +3,7 @@ categories:
 - ""
 - ""
 date: "2020-10-20"
-description: Tes
+description: About me
 draft: false
 image: website_ph2.jpg
 keywords: "About me"

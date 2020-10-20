@@ -1,0 +1,103 @@
+---
+title: "How Trump's Approval Margins changed over years"
+date: '2020-10-20'
+description: Using data from FiveThirtyEight to investigate the performance of US President
+draft: no
+image: trump_title.jpg
+keywords: '' 
+slug: trump
+categories:
+- ''
+- ''
+---
+
+
+
+<div id="trumps-approval-margins" class="section level1">
+<h1>Trump’s Approval Margins</h1>
+<div id="what-about-the-dynamics-over-years" class="section level2">
+<h2>What about the dynamics over years?</h2>
+<pre class="r"><code># Import approval polls data
+#Directly off fivethirtyeight website
+approval_polllist &lt;- read_csv(&#39;https://projects.fivethirtyeight.com/trump-approval-data/approval_polllist.csv&#39;)
+glimpse(approval_polllist)</code></pre>
+<pre><code>## Rows: 15,855
+## Columns: 22
+## $ president           &lt;chr&gt; &quot;Donald Trump&quot;, &quot;Donald Trump&quot;, &quot;Donald Trump&quot;,...
+## $ subgroup            &lt;chr&gt; &quot;All polls&quot;, &quot;All polls&quot;, &quot;All polls&quot;, &quot;All pol...
+## $ modeldate           &lt;chr&gt; &quot;10/20/2020&quot;, &quot;10/20/2020&quot;, &quot;10/20/2020&quot;, &quot;10/2...
+## $ startdate           &lt;chr&gt; &quot;1/20/2017&quot;, &quot;1/20/2017&quot;, &quot;1/21/2017&quot;, &quot;1/20/20...
+## $ enddate             &lt;chr&gt; &quot;1/22/2017&quot;, &quot;1/22/2017&quot;, &quot;1/23/2017&quot;, &quot;1/24/20...
+## $ pollster            &lt;chr&gt; &quot;Morning Consult&quot;, &quot;Gallup&quot;, &quot;Gallup&quot;, &quot;Ipsos&quot;,...
+## $ grade               &lt;chr&gt; &quot;B/C&quot;, &quot;B&quot;, &quot;B&quot;, &quot;B-&quot;, &quot;B-&quot;, &quot;B+&quot;, &quot;C+&quot;, &quot;B&quot;, &quot;...
+## $ samplesize          &lt;dbl&gt; 1992, 1500, 1500, 1632, 1651, 1190, 1500, 1500,...
+## $ population          &lt;chr&gt; &quot;rv&quot;, &quot;a&quot;, &quot;a&quot;, &quot;a&quot;, &quot;a&quot;, &quot;rv&quot;, &quot;lv&quot;, &quot;a&quot;, &quot;lv&quot;...
+## $ weight              &lt;dbl&gt; 0.680, 0.262, 0.243, 0.153, 0.142, 1.514, 0.200...
+## $ influence           &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...
+## $ approve             &lt;dbl&gt; 46.0, 45.0, 45.0, 42.1, 42.3, 36.0, 57.0, 46.0,...
+## $ disapprove          &lt;dbl&gt; 37.0, 45.0, 46.0, 45.2, 45.8, 44.0, 43.0, 45.0,...
+## $ adjusted_approve    &lt;dbl&gt; 45.5, 45.8, 45.8, 43.3, 43.5, 37.7, 51.6, 46.8,...
+## $ adjusted_disapprove &lt;dbl&gt; 38.2, 43.6, 44.6, 43.9, 44.5, 42.8, 44.5, 43.6,...
+## $ multiversions       &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ tracking            &lt;lgl&gt; NA, TRUE, TRUE, TRUE, TRUE, NA, TRUE, TRUE, TRU...
+## $ url                 &lt;chr&gt; &quot;http://static.politico.com/9b/13/82a3baf542ae9...
+## $ poll_id             &lt;dbl&gt; 49249, 49253, 49262, 49426, 49425, 49260, 49266...
+## $ question_id         &lt;dbl&gt; 77261, 77265, 77274, 77599, 77598, 77272, 77278...
+## $ createddate         &lt;chr&gt; &quot;1/23/2017&quot;, &quot;1/23/2017&quot;, &quot;1/24/2017&quot;, &quot;3/1/201...
+## $ timestamp           &lt;chr&gt; &quot;09:40:30 20 Oct 2020&quot;, &quot;09:40:30 20 Oct 2020&quot;,...</code></pre>
+<pre class="r"><code># Use `lubridate` to fix dates, as they are given as characters.</code></pre>
+</div>
+<div id="create-a-plot" class="section level2">
+<h2>Create a plot</h2>
+<p>We calculate the average net approval rate (approve- disapprove) for each week since he got into office. We plot the net approval, along with its 95% confidence interval.</p>
+<pre class="r"><code>approval_polllist &lt;- approval_polllist %&gt;% 
+  mutate(net_approval = approve - disapprove,
+         date = mdy(enddate),
+         year = year(date),
+         week = week(date))
+Trump_approval_margin &lt;- approval_polllist %&gt;% 
+  group_by(year, week) %&gt;% 
+  summarise(mean_net_approval = mean(net_approval),
+            sd_net_approval = sd(net_approval),
+            count = n(),
+            t_critical = qt(0.975, count-1),
+            se_net_approval = sd_net_approval/sqrt(count),
+            low_net_approval = mean_net_approval - t_critical*se_net_approval,
+            high_net_approval = mean_net_approval + t_critical*se_net_approval)</code></pre>
+<pre class="r"><code>Trump_plot &lt;- Trump_approval_margin %&gt;% 
+  ggplot(aes(x = week, y = mean_net_approval, color = as.factor(year))) +
+  geom_ribbon(aes(ymin = low_net_approval, ymax = high_net_approval, fill = as.factor(year))) +
+  geom_line() +
+  geom_point() +
+  facet_wrap(~year) +
+  scale_color_manual(values = c(&quot;#FF0000&quot;, &quot;#32CD32&quot;, &quot;#236B81&quot;, &quot;#9932CD&quot;, &quot;organge&quot;)) +
+  scale_fill_manual(values = alpha(c(&quot;#FF0000&quot;, &quot;#32CD32&quot;, &quot;#236B81&quot;, &quot;#9932CD&quot;), 0.1)) +
+  scale_x_continuous(breaks = c(0, 13, 26, 39, 52)) +
+  scale_y_continuous(breaks = seq(-20, 7.5, by = 2.5)) +
+  coord_fixed(ratio = 1/1.5) +
+  geom_hline(aes(yintercept=0), color = &quot;orange&quot;) +
+  labs(title = &quot;The average approval for Trump started to get volatile again recently&quot;, 
+       subtitle = &quot;Estimating Net Approval (approve-disapprove) for Donald Trump (Weekly average of all polls)&quot;,
+       x = &quot;Week of the year&quot;,
+       y = &quot;Average Net Approval (%)&quot;) +
+  theme(legend.position = &quot;none&quot;) +
+  theme_bw()
+Trump_plot</code></pre>
+<p><img src="/blogs/trump_files/figure-html/picture_Trump_approval_margin-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<p>We facet by year, and add an orange line at zero.</p>
+</div>
+<div id="compare-confidence-intervals-for-week-15-and-week-34-in-2020" class="section level2">
+<h2>Compare Confidence Intervals for week 15 and week 34 in 2020</h2>
+<p>We compare the confidence intervals for ‘week 15’ (6-12 April 2020) and ‘week 34’ (17-23 August 2020).</p>
+<pre class="r"><code>Trump_approval_margin %&gt;% 
+  filter(week %in% c(15, 34), year == 2020) %&gt;% 
+  select(c(year, week, low_net_approval, high_net_approval))</code></pre>
+<pre><code>## # A tibble: 2 x 4
+## # Groups:   year [1]
+##    year  week low_net_approval high_net_approval
+##   &lt;dbl&gt; &lt;dbl&gt;            &lt;dbl&gt;             &lt;dbl&gt;
+## 1  2020    15            -8.29             -6.95
+## 2  2020    34           -13.0              -9.93</code></pre>
+<p>Based on the results above, in week 34 confidence interval is longer due to a higher standard error which can be due to t-critical value or standard deviation. In both, week 15 and week 34 t-critical values are approximately the same, therefore standard distribution in week 34 is higher indicating poor results. It is then difficult to predict true mean. The reason of this fall might be Trump’s attitude during the beginning of the Coronavirus outbreak.</p>
+</div>
+</div>
