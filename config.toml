@@ -68,13 +68,13 @@ disqusShortname = ""
 
     # Button Style 1
     [[params.navigation.button1]]
-      name = "About me and my projects"
+      name = "Blog"
       url = "blogs"
 
     # Button Style 2
-    #[[params.navigation.button2]]
-    #  name = "Log In"
-    #  url = "#"
+    [[params.navigation.button2]]
+      name = "CV"
+      url = "blogs/Philipp_Permyakov_CV_web.pdf"
 
 
   # Banner section
