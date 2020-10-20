@@ -98,7 +98,7 @@ disqusShortname = ""
       url = "blogs/about_me"
 
     [[params.tiles.showcase]]
-      title = "How much does it cost to stay in Honk Kong?"
+      title = "How much does it cost to stay in Hong Kong?"
       subtitle = "Lets find the answer using AirBnb data"
       image = "airbnb_w.jpg"
       url = "blogs/airbnb"
