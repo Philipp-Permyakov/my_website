@@ -1,0 +1,122 @@
+---
+title: "What countries lead in beer consumption? Wine? Spirit?"
+date: '2020-10-20'
+description: Investigating love for alcohol across geographies
+draft: no
+image: beer_title.jpg
+keywords: ''
+slug: beer
+categories:
+- ''
+- ''
+---
+
+
+```{r, setup, echo=FALSE} 
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,     # display code as typed
+  size="small")   # slightly smaller font for code
+options(digits = 3)
+# default figure size
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center"
+)
+```
+
+
+```{r load-libraries, warning=FALSE, message=FALSE, echo=FALSE}
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(lubridate)
+library(fivethirtyeight)
+library(here)
+library(skimr)
+library(janitor)
+library(vroom)
+library(tidyquant)
+library(rvest)    # scrape websites
+library(purrr)  
+library(lubridate) #to handle dates
+```
+
+
+
+# Where Do People Drink The Most Beer, Wine And Spirits?
+
+Back in 2014, [fivethiryeight.com](https://fivethirtyeight.com/features/dear-mona-followup-where-do-people-drink-the-most-beer-wine-and-spirits/) published an article on alchohol consumption in different countries. The data `drinks` is available as part of the `fivethirtyeight` package. Make sure you have installed the `fivethirtyeight` package before proceeding.
+
+
+```{r, load_alcohol_data}
+library(fivethirtyeight)
+data(drinks)
+```
+
+
+What are the variable types? Any missing values we should worry about? 
+
+- There are 1 character (country) and 4 numeric variables (beer_servings, spirit_servings, wine_servings, total_litres_of_pure_alcohol). We don't have any missing data, they are all complete.
+
+
+```{r glimpse_skim_data}
+data(drinks)
+skim(drinks)
+# No missing values!
+```
+
+
+Make a plot that shows the top 25 beer consuming countries
+
+```{r beer_plot}
+beer_data<-drinks %>% 
+  arrange(desc(beer_servings)) %>% 
+  slice(1:25)
+beer_data
+ggplot(beer_data, aes(y=reorder(country,beer_servings),x=beer_servings))+
+  geom_col() +
+  theme_economist() +
+  labs(title="Beer Consumption Top 25 Countries", subtitle= "\nin # Beer Serving consumed per person in 2010\n", y="", x="\n # Beer Servings") +
+  scale_x_continuous(expand = c(0,0)) 
+```
+
+Make a plot that shows the top 25 wine consuming countries
+
+```{r wine_plot}
+wine_data <- drinks %>%
+  arrange(desc(wine_servings))%>%
+  slice(1:25)
+wine_data
+ggplot(wine_data, aes(y=reorder(country,wine_servings),x=wine_servings))+
+  geom_col() +
+  theme_economist() +
+  labs(title="Wine Consumption Top 25 Countries", subtitle= "\nin # Wine Serving consumed per person in 2010\n", y="", x="\n # Wine Servings") +
+  scale_x_continuous(expand = c(0,0))
+```
+
+Finally, make a plot that shows the top 25 spirit consuming countries
+```{r spirit_plot}
+spirit_data <- drinks %>%
+  arrange(desc(spirit_servings))%>%
+  slice(1:25)
+spirit_data
+ggplot(spirit_data, aes(y=reorder(country,spirit_servings),x=spirit_servings))+
+  geom_col() +
+  theme_economist() +
+  labs(title="Spirit Consumption Top 25 Countries", subtitle= "\nin # Spirit Serving consumed per person in 2010\n", y="", x="\n # Spirit Servings") +
+  scale_x_continuous(expand = c(0,0))
+```
+
+
+We can see significant differences in alcohol consumption over three classes of alcohol: beer, wine, and spirits. This comes along with at least two reasons behind it:
+
+First, culture and secondly wealth. For beer consumption we see that Namibia has the highest as it used to be a German colony, the Czech Republic with the City of Pilsen (founding place for the beer type: "Pils") has the second highest beer consumption, and Germany has the 4th highest beer consumption with its long history of beer making and currently more than 1,500 beer breweries all over Germany. The origins of particular alcohol consumption may lay in the can be connected to the economic resources available to a country during its development. For example, Germany had a prosperous agriculture industry with a big production of wheat. As a result, this allowed them to start successful beer production, making this drink popular among the citizens.
+
+At the same time, the interesting fact is that well-known stereotypes are actually reflected in the data. Countries like Russia and Belarus indeed consume the highest amount of spirits, especially, we believe, their famous vodka. Germany and the Czech Republic are leading in beer consumption, while France and Portugal stick to their prominent wines. 
+What is more, we see that Muslim countries are not included in the top alcohol consuming countries, as their religion and culture is against alcohol. For wealth, we can see that a lot of rich western countries have a higher consumption as they have more money to spend on luxury goods, i.e. alcohol.
+
+Lastly, another interesting observation is that there are no countries with leading positions in several categories like beer and spirits, or wine and spirits. This means, that the actual alcohol consumption is more about preferences of the citizens connected to the above-stated reasons, rather than just pure consumption of alcohol with an aim to get tipsy.
+

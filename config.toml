@@ -110,16 +110,16 @@ disqusShortname = ""
       url = "blogs/tfl_bikes"
 
     [[params.tiles.showcase]]
-      title = "Ipsum"
-      subtitle = "Nisl Sed Aliquam"
-      image = "pic04.jpg"
-      url = "blogs/ipsum"
+      title = "Does  “inverted yield curve” predict recession?"
+      subtitle = "Constructing yield curve for 60 years to see the answer"
+      image = "yield_wp.jpg"
+      url = "blogs/yield"
 
     [[params.tiles.showcase]]
-      title = "Consequat"
-      subtitle = "Ipsum Dolor Sit Amet"
-      image = "pic05.jpg"
-      url = "blogs/ipsum"
+      title = "Love for alcohol across the globe"
+      subtitle = "Where Do People Drink the Most Beer, Wine And Spirits?"
+      image = "beer_wp.jpeg"
+      url = "blogs/beer"
 
     [[params.tiles.showcase]]
       title = "Etiam"
